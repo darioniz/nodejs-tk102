@@ -28,8 +28,8 @@ var specs = [
       str = raw.split (',');
 
       if ((str.length === 18 || str.length === 28) && str [2] === 'GPRMC') {
-        datetime = str [0] .replace (/([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})/, function (s, y, m, d, h, i) {
-          return '20' + y + '-' + m + '-' + d + ' ' + h + ':' + i;
+        datetime = str [0] .replace (/([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})/, function (s, y, m, d, h, i, ms) {
+          return '20' + y + '-' + m + '-' + d + ' ' + h + ':' + i + ':' + ms;
         });
 
         gpsdate = str [11] .replace (/([0-9]{2})([0-9]{2})([0-9]{2})/, function (s, d, m, y) {
@@ -37,11 +37,11 @@ var specs = [
         });
 
         gpstime = str [3] .replace (/([0-9]{2})([0-9]{2})([0-9]{2})\.([0-9]{3})/, function (s0, h, i, s, ms) {
-          return h + ':' + i + ':' + s + '.' + ms;
+          return h + ':' + i + ':' + s;
         });
 
         if (str.length === 28) {
-          imei = str [17] .replace ('imei:', '');
+          imei = str [17] .replace ('imei:', '').trim ();
         } else {
           imei = str [16] .replace ('imei:', '');
         }
