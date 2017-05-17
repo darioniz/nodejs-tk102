@@ -15,7 +15,7 @@ var xt009 = new EventEmitter();
 var specs = [
   function (raw) {
     // 170517225424,00385918985008,GPRMC,205424.000,A,4310.1757,N,01626.4730,E,0.10,123.43,170517,,,A*69,F,, imei:863070018466416,10,-0.8,F:4.24V,1,127,19274,219,01,047E,8CEC
-    // datetime (0), authorized number (1), gprmc (2), local time (3), gps fix (4), lat (5, 6), lon (7, 8), speed knots (9), heading/bearing (10), date (11), signal (15), imei (17), , altitude(19), battery (20)
+    // datetime (0), authorized number (1), gprmc (2), local time (3), gps fix (4), lat (5, 6), lon (7, 8), speed knots (9), heading/bearing (10), date (11), signal (15), imei (17), number of satelites (18), altitude(19), battery (20), is_charging (21), mobile country code (24), mobile network code (25), location area code (26), gsm cell id (27)
     var result = null;
     var str = [];
     var datetime = '';
@@ -51,11 +51,19 @@ var specs = [
           datetime: datetime,
           phone: str[1],
           battery: str[20],
+          charging: str[21],
           gps: {
             date: gpsdate,
             time: gpstime,
             signal: str[15] === 'F' ? 'full' : 'low',
-            fix: str[4] === 'A' ? 'active' : 'invalid'
+            fix: str[4] === 'A' ? 'active' : 'invalid',
+            sats: str[18]
+          },
+          cell: {
+            mcc: str[24],
+            mnc: str[25],
+            lac: str[26],
+            id: str[27]
           },
           geo: {
             latitude: xt009.fixGeo(str[5], str[6]),

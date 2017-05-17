@@ -61,6 +61,7 @@ dotest.add('parse valid', function () {
     .isExactly('fail', 'data.gps.date', data && data.gps && data.gps.date, '2017-05-17')
     .isExactly('fail', 'data.gps.time', data && data.gps && data.gps.time, '20:54:24')
     .isExactly('fail', 'data.gps.signal', data && data.gps && data.gps.signal, 'full')
+    .isExactly('fail', 'data.cell.id', data && data.gps && data.cell.id, '8CEC')
     .isExactly('fail', 'data.gps.fix', data && data.gps && data.gps.fix, 'active')
     .isObject('fail', 'data.geo', data && data.geo)
     .isExactly('fail', 'data.geo.latitude', data && data.geo && data.geo.latitude, 43.169595)
